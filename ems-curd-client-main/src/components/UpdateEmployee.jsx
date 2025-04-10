@@ -8,14 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const UpdateEmployee = () => {
 
   // Thease state save data come  from database
-  const [firstName, setFirstName] = useState([]);
-  const [lastName, setlastName] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [mobileNumber , setMobileNumber] = useState([]);
-  const [dateofbirth , setDateOfBirth] = useState([]);
-  const [gender , setGender] = useState([]);
-  const [country , setCountry] = useState([]);
-  const [file , setFile] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileNumber , setMobileNumber] = useState("");
+  const [dateofbirth , setDateOfBirth] = useState("");
+  const [gender , setGender] = useState("");
+  const [country , setCountry] = useState("");
+  const [file , setFile] = useState(null); // file should be null initially
   
 
   const [errors, setErrors] = useState({
@@ -45,7 +45,8 @@ const UpdateEmployee = () => {
                   setDateOfBirth(response.data.dateofbirth);
                   setGender(response.data.gender);
                   setCountry(response.data.country);
-                  setPicture(response.data.picture);
+                  // setFile(response.data.picture);
+                  setFile(null);
               }).catch(error => {
                   console.error(error)
               })
@@ -56,7 +57,20 @@ const UpdateEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    const formData = {firstName,lastName,email,mobileNumber,gender,dateofbirth,file,country};
+   // const formData = {firstName,lastName,email,mobileNumber,gender,dateofbirth,file,country};
+
+   const formData = new FormData();
+   formData.append("firstName", firstName);
+   formData.append("lastName", lastName);
+   formData.append("email", email);
+   formData.append("mobileNumber", mobileNumber);
+   formData.append("dateofbirth", dateofbirth);
+   formData.append("gender", gender);
+   formData.append("country", country);
+   if (file) {
+     formData.append("file", file);
+   }
+   
     updateEmployee(id,formData).then((response) => {
       toast.success('Update Employee Successfully...',{
         position: "top-center",theme: "colored"
@@ -67,8 +81,11 @@ const UpdateEmployee = () => {
         toast.error("Something went wrong") 
         console.error(error);
   })
-  console.log('Form Data Submitted:', formData);
-  
+   // console.log('Form Data Submitted:', formData);
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
   };
 
   return (
@@ -213,7 +230,7 @@ const UpdateEmployee = () => {
                         onChange={(e) => setCountry(e.target.value)}
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                       >
-                        <option value="Select your country" disabled>Select your country</option>
+                        <option value="" disabled>Select your country</option>
                         <option value="United States">United States</option>
                         <option value="Canada">Canada</option>
                         <option value="United Kingdom">United Kingdom</option>
@@ -230,11 +247,9 @@ const UpdateEmployee = () => {
                     type='file'
                     id="file"
                     name="file"
-                    value={file}
-                    onChange={(e) => setFile(e.target.value)}
+                   // value={file}
+                    onChange={(e) => setFile(e.target.files[0])}
                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your lastname"
-                    required
                   />
                   </div>
               </div>

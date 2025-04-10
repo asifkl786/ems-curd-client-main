@@ -2,7 +2,7 @@ import axios from 'axios';
 
   //const API_URL = 'https://outstanding-passion-production.up.railway.app/api/employees';
 
-  const API_URL = 'http://localhost:8081/api/employees';
+  const API_URL = 'http://localhost:8080/api/employees';
                
 
   // Fetch all employees
@@ -17,7 +17,7 @@ import axios from 'axios';
   export const getEmployee = (employeeId) => axios.get(API_URL + '/' + employeeId);
 
   // Update an existing employee
-  export const updateEmployee = (employeeId,formData) => axios.put(API_URL + '/' + employeeId , formData);
+ // export const updateEmployee = (employeeId,formData) => axios.put(API_URL + '/' + employeeId , formData);
   
   // Delete an employee
   export const deleteEmployee = (employeeId) => axios.delete(API_URL + '/' + employeeId);
@@ -34,9 +34,18 @@ import axios from 'axios';
       data.append(key, formData[key]);
     }
   
-    return axios.post(API_URL, data, {
+    return axios.post(API_URL + '/create', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
+  
+  // update Employee 
+  export const updateEmployee = (id, data) => {
+    return axios.put(`${API_URL}/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
       },
     });
   };

@@ -49,7 +49,7 @@ function EmployeeView() {
       <h2 className="text-xl font-bold mb-2 text-center bg-yellow-400">Employee Details</h2>
      
       <p><strong>Employee Id:</strong>{id}</p>
-     <p><strong>First Name:</strong>{firstName}</p>
+      <p><strong>First Name:</strong>{firstName}</p>
       <p><strong>Last Name:</strong>{lastName}</p>
       <p><strong>Email:</strong>{email}</p>
       <p><strong>Mobile Number:</strong>{mobileNumber}</p>
