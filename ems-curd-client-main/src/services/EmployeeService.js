@@ -4,7 +4,8 @@ import axios from 'axios';
 
   //const API_URL = 'http://localhost:8080/api/employees';
 
-  const API_URL = "https://ems-server-with-logger-1.onrender.com";
+ // const API_URL = "https://ems-server-with-logger-1.onrender.com";
+  const API_URL = "https://ems-server-with-logger-1.onrender.com/api/employees"
                
 
   // Fetch all employees
@@ -36,7 +37,7 @@ import axios from 'axios';
       data.append(key, formData[key]);
     }
   
-    return axios.post(API_URL + '/create', data, {
+    return axios.post(`${API_URL}/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
