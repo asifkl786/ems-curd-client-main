@@ -1,18 +1,23 @@
 import axios from 'axios';
 
+
+       // Automatically use the correct API URL based on environment
+         const API_URL = import.meta.env.VITE_API_URL;
   //const API_URL = 'https://outstanding-passion-production.up.railway.app/api/employees';
 
   //const API_URL = 'http://localhost:8080/api/employees';
 
  // const API_URL = "https://ems-server-with-logger-1.onrender.com";
-  const API_URL = "https://ems-server-with-logger-1.onrender.com/api/employees"
-               
+  //const API_URL = "https://ems-server-with-logger-1.onrender.com/api/employees"
+  //          const API_URL = "https://ems-server-with-logger-2.onrender.com/api/employees"
 
   // Fetch all employees
-    export const fetchEmployees = async () => {
+  /*  export const fetchEmployees = async () => {
        return await axios.get(API_URL);
-    };
-  
+    }; */
+     export const fetchEmployees = (page = 0, size = 5) => {
+      return axios.get(`${API_URL}/paginated?page=${page}&size=${size}`);
+     };
   // Create a new employee
  // export const createEmployee = (formData) => axios.post(API_URL,formData);
 

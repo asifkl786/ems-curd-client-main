@@ -1,13 +1,21 @@
-
 import React, { useState } from 'react';
 import { createEmployee } from '../services/EmployeeService';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Lucide Icons
+import {
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Globe,
+  ImagePlus,
+  UserPlus,
+} from 'lucide-react';
 
 const Employee = () => {
-  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,30 +24,18 @@ const Employee = () => {
     dateofbirth: '',
     gender: '',
     country: '',
-    // picture: '',
-    file: null, // Store the actual File object
+    file: null,
   });
-
 
   const navigator = useNavigate();
 
-  /*
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }; */
-
-  // file input handling 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-  
+
     if (type === 'file') {
       setFormData({
         ...formData,
-        [name]: files[0], // set the selected file
+        [name]: files[0],
       });
     } else {
       setFormData({
@@ -48,112 +44,117 @@ const Employee = () => {
       });
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    createEmployee(formData).then((response) => {
-      toast.success('Employee Add Successfully...',{
-         position: "top-center",theme: "colored"
-      });
+
+    createEmployee(formData)
+      .then((response) => {
+        toast.success('Employee Added Successfully...', {
+          position: 'top-center',
+          theme: 'colored',
+        });
         console.log(response.data);
-        navigator('/')
-        }).catch(error => {
+        navigator('/');
+      })
+      .catch((error) => {
         console.error(error);
-        toast.error("Something went wrong")
-    })
-    console.log('Form Data Submitted:', formData);
+        toast.error('Something went wrong');
+      });
   };
 
   return (
     <>
       <div className="max-w-lg mx-auto p-4 mt-4 bg-white shadow-lg rounded-lg">
-          <h2 className="p-3 bg-yellow-400 text-2xl font-bold mb-2 text-gray-700 text-center">Add Employee Information Page</h2>
-            <form onSubmit={handleSubmit}>
-              <div className='row gap-2 grid grid-cols-2'>
-                <div className="mb-4">
-                  <label htmlFor="firstname" className="block text-gray-700 mb-1">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                <label htmlFor="lastname" className="block text-gray-700 mb-1">
-                  Last Name
-                </label>
-                <input
-                  type='text'
-                  id="lastname"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your lastname"
-                  required
-                />
-                </div>
-              </div>
+        <h2 className="p-3 bg-yellow-400 text-2xl font-bold mb-2 text-gray-700 text-center">
+          Add Employee Information Page
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div className="row gap-2 grid grid-cols-2">
+            <div className="mb-4">
+              <label htmlFor="firstname" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <User size={16} /> First Name
+              </label>
+              <input
+                type="text"
+                id="firstname"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="lastname" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <User size={16} /> Last Name
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your lastname"
+                required
+              />
+            </div>
+          </div>
 
-              <div className='row gap-2 grid grid-cols-2'>
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                <label htmlFor="mobilenumber" className="block text-gray-700 mb-1">
-                  Mobile Number
-                </label>
-                <input
-                  type='number'
-                  id="mobilenumber"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your lastname"
-                  required
-                />
-                </div>
-              </div>
+          <div className="row gap-2 grid grid-cols-2">
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <Mail size={16} /> Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="mobilenumber" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <Phone size={16} /> Mobile Number
+              </label>
+              <input
+                type="number"
+                id="mobilenumber"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your mobile number"
+                required
+              />
+            </div>
+          </div>
 
-              <div className='row gap-2 grid grid-cols-2'>
-                <div className="mb-4">
-                  <label htmlFor="dateofbirth" className="block text-gray-700 mb-1">
-                    Date of Birth
-                  </label>
-                  <input
-                    type='date'
-                    id="dateofbirth"
-                    name="dateofbirth"
-                    value={formData.dateofbirth}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your lastname"
-                    required
-                  />
-                </div>
-                <fieldset>
-              <legend className="text-gray-700 mb-1">Gender</legend>
+          <div className="row gap-2 grid grid-cols-2">
+            <div className="mb-4">
+              <label htmlFor="dateofbirth" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <Calendar size={16} /> Date of Birth
+              </label>
+              <input
+                type="date"
+                id="dateofbirth"
+                name="dateofbirth"
+                value={formData.dateofbirth}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <fieldset>
+              <legend className="text-gray-700 mb-1 flex items-center gap-2">
+                <User size={16} /> Gender
+              </legend>
               <div className="flex items-center space-x-4">
                 <label className="flex items-center">
                   <input
@@ -195,57 +196,57 @@ const Employee = () => {
                   <span className="ml-2 text-gray-700">Other</span>
                 </label>
               </div>
-                </fieldset>
-              </div>
-             
-              <div className='row gap-2 grid grid-cols-2'>
-                  <div className="mb-4">
-                      <label htmlFor="country"className="block text-gray-700 mb-1">
-                        Country
-                      </label>
-                      <select
-                        id="country"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                      >
-                        <option value="Select your country" disabled>Select your country</option>
-                        <option value="United States">United States</option>
-                        <option value="Canada">Canada</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Australia">Australia</option>
-                        <option value="India">India</option>
-                      </select>
-                  </div>
+            </fieldset>
+          </div>
 
-                  <div className="mb-4">
-                  <label htmlFor="file" className="block text-gray-700 mb-1">
-                    Upload File
-                  </label>
-                  <input
-                    type='file'
-                    id="file"
-                    name="file"
-                   /* value={formData.file}*/
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  /> 
-                  </div>
-              </div>
-        
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <div className="row gap-2 grid grid-cols-2">
+            <div className="mb-4">
+              <label htmlFor="country" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <Globe size={16} /> Country
+              </label>
+              <select
+                id="country"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                Add Employee
-              </button>
-            </form>
-      </div>      
-   </>
-    
-  )
-}
+                <option value="Select your country" disabled>
+                  Select your country
+                </option>
+                <option value="United States">United States</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Australia">Australia</option>
+                <option value="India">India</option>
+              </select>
+            </div>
 
-export default Employee
+            <div className="mb-4">
+              <label htmlFor="file" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <ImagePlus size={16} /> Upload File
+              </label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center gap-2"
+          >
+            <UserPlus size={18} /> Add Employee
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Employee;
