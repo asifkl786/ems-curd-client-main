@@ -10,10 +10,12 @@ function ListEmployee() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const pageSize = 5; // Records per page
+  const pageSize = 4; // Records per page
 
+  // Thease line of code naviagate to the components
   const navigator = useNavigate();
 
+  // Thease function fetch employee data from database
   useEffect(() => {
     loadEmployees(currentPage);
   }, [currentPage]);
@@ -31,14 +33,19 @@ function ListEmployee() {
     }
   };
 
+
+  // Thease function redirect to handle edit 
   const handleEdit = (id) => {
     navigator(`/edit-employee/${id}`);
   };
 
+   // Thease function redirect to view-employee components
   const ViewEmployee = (id) => {
     navigator(`/view-employee/${id}`);
   };
 
+
+  // Thease function delete data only from UI not delete from  database
   const removeEmployee = (id) => {
     toast.success('Employee Deleted Successfully...', {
       position: "top-center", theme: "colored"
@@ -53,6 +60,7 @@ function ListEmployee() {
       });
   };
 
+  // Thease function control pagination 
   const goToPage = (page) => {
     if (page >= 0 && page < totalPages) {
       setCurrentPage(page);
