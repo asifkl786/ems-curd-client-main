@@ -67,7 +67,7 @@ function EmployeeView() {
         </div>
 
         {/* Button */}
-        <Link to="/">
+        <Link to="/employees">
           <button className="mt-4 w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-all">
             <ArrowLeftCircle size={20} />
             Back to Home

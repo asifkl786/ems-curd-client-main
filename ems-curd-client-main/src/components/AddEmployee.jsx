@@ -47,15 +47,15 @@ const Employee = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("form Data Submited:: & Form Mapping Working fine:",formData);
     createEmployee(formData)
       .then((response) => {
         toast.success('Employee Added Successfully...', {
           position: 'top-center',
           theme: 'colored',
         });
-        console.log(response.data);
-        navigator('/');
+        console.log("Form Data Successfully Save into Database:",response.data);
+        navigator('/employees');
       })
       .catch((error) => {
         console.error(error);

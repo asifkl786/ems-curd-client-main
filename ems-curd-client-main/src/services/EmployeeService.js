@@ -15,7 +15,7 @@ import axios from 'axios';
   /*  export const fetchEmployees = async () => {
        return await axios.get(API_URL);
     }; */
-     export const fetchEmployees = (page = 0, size = 5) => {
+     export const fetchEmployees = (page = 0, size = 4) => {
       return axios.get(`${API_URL}/paginated?page=${page}&size=${size}`);
      };
   // Create a new employee

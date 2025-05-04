@@ -1,26 +1,51 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { isAuthenticated, getCurrentUser } from '../services/AuthService';
+import ProfilePopup from './ProfilePopup';
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const user = getCurrentUser(); // { username, email }
 
   return (
-    <>
-      <nav className='h-10 bg-slate-500 items-center'>
-          <div className='flex justify-between'>
-            <div>
-                <div className='p-2 ml-20 text-white cursor-pointer'>Ems Client</div>
-            </div>
-                <div className='flex space-x-6 p-2 mr-20 text-white cursor-pointer'>
-                    <div><Link to="/">Home</Link></div>
-                    <div><Link to="/add-employee">AddEmployee</Link></div>
-                    <div>Service</div>
-                    <div>Contact</div>
-                </div>
-          </div>
-      </nav>
-    </>
-  )
-}
+    <nav className="h-12 bg-slate-600 flex items-center px-6 text-white justify-between">
+      {/* Logo */}
+      <div className="text-lg font-semibold cursor-pointer">Ems Crud App</div>
 
-export default Navbar
+      {/* Navigation Links */}
+      <div className="flex items-center space-x-6">
+        <Link to="/home" className="hover:underline">Home</Link>
+        <Link to="/add-employee" className="hover:underline">AddEmployee</Link>
+        <Link to="/employees" className="hover:underline">EmpList</Link>
+
+        {!isAuthenticated() ? (
+          <>
+            <Link to="/login" className="hover:underline text-blue-200">Login</Link>
+            <Link to="/register" className="hover:underline text-green-200">Register</Link>
+          </>
+        ) : (
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex items-center space-x-2 focus:outline-none"
+            >
+              <img
+                src="https://i.pravatar.cc/30"
+                alt="profile"
+                className="w-8 h-8 rounded-full"
+              />
+             { /*<span className="font-medium">{user?.username}</span>*/}
+            </button>
+
+            {menuOpen && (
+              <ProfilePopup user={user} />
+            )}
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

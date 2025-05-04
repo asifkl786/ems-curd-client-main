@@ -75,8 +75,8 @@ const UpdateEmployee = () => {
       toast.success('Update Employee Successfully...',{
         position: "top-center",theme: "colored"
      });
-      console.log(response.data);
-      navigator('/')
+      console.log("Employee Successfully Updated::",response.data);
+      navigator('/employees')
       }).catch(error => {
         toast.error("Something went wrong") 
         console.error(error);
