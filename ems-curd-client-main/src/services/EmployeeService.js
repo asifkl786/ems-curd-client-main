@@ -11,10 +11,12 @@ import axios from 'axios';
   //const API_URL = "https://ems-server-with-logger-1.onrender.com/api/employees"
   //          const API_URL = "https://ems-server-with-logger-2.onrender.com/api/employees"
 
-  // Fetch all employees
-  /*  export const fetchEmployees = async () => {
-       return await axios.get(API_URL);
-    }; */
+  // Fetch TotalNumber of employees
+    export const fetchTotalNumberOfEmployees = async () => {
+       return await axios.get(`${API_URL}/totalEmployee`)
+    }; 
+
+  // Fetch Employee page by page  
      export const fetchEmployees = (page = 0, size = 4) => {
       return axios.get(`${API_URL}/paginated?page=${page}&size=${size}`);
      };
@@ -58,4 +60,12 @@ import axios from 'axios';
     });
   };
   
-  
+  // fetch grouping by department data
+  export const fetchGroupedByDepartment = async() => {
+    return await axios.get(`${API_URL}/grouped-by-department`)
+  };
+
+  // fetch department distribution data from employee
+  export const fetchDepartmentDistribution = async() => {
+    return await axios.get(`${API_URL}/department-distribution`);
+  };

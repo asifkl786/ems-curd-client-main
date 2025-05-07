@@ -13,6 +13,7 @@ import {
   Globe,
   ImagePlus,
   UserPlus,
+  Building2,
 } from 'lucide-react';
 
 const Employee = () => {
@@ -25,6 +26,7 @@ const Employee = () => {
     gender: '',
     country: '',
     file: null,
+    department:'',
   });
 
   const navigator = useNavigate();
@@ -87,19 +89,25 @@ const Employee = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="lastname" className="block text-gray-700 mb-1 flex items-center gap-2">
-                <User size={16} /> Last Name
+              <label htmlFor="department" className="block text-gray-700 mb-1 flex items-center gap-2">
+                <Building2 size={16} /> Department
               </label>
-              <input
-                type="text"
-                id="lastname"
-                name="lastName"
-                value={formData.lastName}
+              <select
+                id="department"
+                name="department"
+                value={formData.department}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your lastname"
-                required
-              />
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                <option value="" disabled>
+                  Select your Department
+                </option>
+                <option value="TECH">TECH</option>
+                <option value="HR">HR</option>
+                <option value="Sales">Sales</option>
+                <option value="Support">Support</option>
+                <option value="Admin">Admin</option>
+              </select>
             </div>
           </div>
 
@@ -211,7 +219,7 @@ const Employee = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                <option value="Select your country" disabled>
+                <option value="" disabled>
                   Select your country
                 </option>
                 <option value="United States">United States</option>

@@ -13,6 +13,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { isAuthenticated } from './services/AuthService';
 
+import Dashboard from './pages/Dashboard'; // ↩️ Full dashboard page
+import withRoleGuard from './guards/withRoleGuard'; // ↩️ HOC for role guard
+import GroupedView from './pages/GroupedView';
+import EmployeeDirectory from './pages/EmployeeDirectory';
+
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
@@ -32,6 +37,12 @@ export default function App() {
         <Route path="/view-employee/:id" element={<PrivateRoute><EmployeView /></PrivateRoute>} />
         <Route path="/edit-employee/:id" element={<PrivateRoute><UpdateEmployee /></PrivateRoute>} />
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/grouped-by-department" element={<PrivateRoute><GroupedView /></PrivateRoute>} />
+        <Route path="/directory" element={<PrivateRoute><EmployeeDirectory /></PrivateRoute>} />
+
+
+         {/* 📊 Dashboard (admin only if needed) */}
+         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
 
         {/* 🏠 Default Route */}
         {/* <Route path="/" element={<Navigate to="/employees" />} />   */} 

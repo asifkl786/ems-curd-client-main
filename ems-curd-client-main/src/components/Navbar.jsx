@@ -15,7 +15,7 @@ const Navbar = () => {
 
       {/* Navigation Links */}
       <div className="flex items-center space-x-6">
-        <Link to="/home" className="hover:underline">Home</Link>
+        <Link to="/dashboard" className="hover:underline">Dashboard</Link>
         <Link to="/add-employee" className="hover:underline">AddEmployee</Link>
         <Link to="/employees" className="hover:underline">EmpList</Link>
 

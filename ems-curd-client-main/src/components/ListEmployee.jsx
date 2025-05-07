@@ -75,7 +75,7 @@ function ListEmployee() {
           <tr className="bg-slate-400">
             <th className="py-2 px-4 border-b">Id</th>
             <th className="py-2 px-4 border-b">F_Name</th>
-            <th className="py-2 px-4 border-b">L_Name</th>
+            <th className="py-2 px-4 border-b">Department</th>
             <th className="py-2 px-4 border-b">Email</th>
             <th className="py-2 px-4 border-b">Mobile</th>
             <th className="py-2 px-4 border-b">D.O.B</th>
@@ -90,7 +90,7 @@ function ListEmployee() {
             <tr key={employee.id}>
               <td className="py-2 px-4 border-b">{employee.id}</td>
               <td className="py-2 px-4 border-b">{employee.firstName}</td>
-              <td className="py-2 px-4 border-b">{employee.lastName}</td>
+              <td className="py-2 px-4 border-b">{employee.department}</td>
               <td className="py-2 px-4 border-b">{employee.email}</td>
               <td className="py-2 px-4 border-b">{employee.mobileNumber}</td>
               <td className="py-2 px-4 border-b">{employee.dateofbirth}</td>
