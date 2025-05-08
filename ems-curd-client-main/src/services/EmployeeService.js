@@ -69,3 +69,8 @@ import axios from 'axios';
   export const fetchDepartmentDistribution = async() => {
     return await axios.get(`${API_URL}/department-distribution`);
   };
+
+  // fetch monthly data from table
+  export const fetchEmployeeGrowth = async() => {
+    return await axios.get(`${API_URL}/employee-growth`)
+  };

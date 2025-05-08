@@ -3,7 +3,7 @@ import { fetchGroupedByDepartment } from "../services/EmployeeService";
 import EmployeeCard from "../components/EmployeeCard";
 import EmployeeModal from "../components/EmployeeModal";
 import FilterSearchBar from "../components/FilterSearchBar";
-import { all } from "axios";
+
 
 const EmployeeDirectory = () => {
   const [data, setData] = useState([]);
@@ -20,7 +20,7 @@ const EmployeeDirectory = () => {
 
   const allEmployees = data.flatMap(d => d.employees);
   const departments = ["All", ...new Set(data.map(d => d.department))];
-  //console.log(allEmployees,departments);
+  console.log(departments);
 
   const filtered = allEmployees.filter(emp => {
     const matchesDept = selectedDept === "All" || emp.department.toLowerCase() === selectedDept.toLowerCase();

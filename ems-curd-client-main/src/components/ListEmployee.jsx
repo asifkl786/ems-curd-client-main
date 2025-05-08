@@ -10,7 +10,7 @@ function ListEmployee() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const pageSize = 4; // Records per page
+  const pageSize = 5; // Records per page
 
   // Thease line of code naviagate to the components
   const navigator = useNavigate();

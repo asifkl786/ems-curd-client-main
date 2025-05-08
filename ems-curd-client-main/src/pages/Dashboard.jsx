@@ -7,11 +7,13 @@ import DepartmentPieChart from '../components/dashboard/PieChart';
 import SkeletonCard from '../components/dashboard/SkeletonCard';
 import { fetchTotalNumberOfEmployees } from '../services/EmployeeService';
 import { fetchDepartmentDistribution } from '../services/EmployeeService';
+import { fetchEmployeeGrowth } from '../services/EmployeeService';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({});
   const [pieData, setPieData] = useState([]);
+  const [growthData, setGrowthData] = useState([]);
 
 /*
   useEffect(() => {
@@ -32,15 +34,17 @@ const Dashboard = () => {
   useEffect(() => {
     Promise.all([
       fetchTotalNumberOfEmployees(),
-      fetchDepartmentDistribution()
+      fetchDepartmentDistribution(),
+      fetchEmployeeGrowth()
     ])
-      .then(([empRes, deptRes]) => {
+      .then(([empRes, deptRes, monthRes]) => {
         setStats({
           employees: empRes.data,
           departments: deptRes.data.length,
           pendingTasks: 3
         });
         setPieData(deptRes.data);
+        setGrowthData(monthRes.data);
         console.log("Pie Chart Data:", deptRes.data);
       })
       .catch((error) => console.error("Dashboard error:", error))
@@ -82,13 +86,14 @@ const Dashboard = () => {
 
       {!loading && (
         <>
-          <GrowthChart data={[
+          {/*     <GrowthChart data={[
             { month: 'Jan', employees: 5 },
             { month: 'Feb', employees: 10 },
             { month: 'Mar', employees: 14 },
             { month: 'Apr', employees: 20 },
             { month: 'May', employees: 24 },
-          ]} />
+          ]} />*/} 
+          <GrowthChart data={growthData} />
           <DepartmentPieChart data={pieData} />
           <QuickActions />
         </>
